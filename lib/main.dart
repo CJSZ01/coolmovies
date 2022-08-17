@@ -1,4 +1,7 @@
 import 'dart:io';
+
+import 'package:coolmovies/utils/themes/default_theme.dart';
+import 'package:coolmovies/view/pages/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -41,10 +44,8 @@ class CoolMoviesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CoolMovies',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Coolmovies'),
+      theme: DefaultTheme.themeData,
+      home: const LoginView(),
     );
   }
 }
