@@ -1,3 +1,4 @@
+import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/utils/svg_pictures.dart';
 import 'package:coolmovies/view/components/base_view.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class LoginView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushReplacementNamed(
+                          context, AppRoutes.home),
                       child: const Text('Login'),
                     ),
                     ElevatedButton(
