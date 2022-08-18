@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/utils/themes/default_theme.dart';
-import 'package:coolmovies/view/pages/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
