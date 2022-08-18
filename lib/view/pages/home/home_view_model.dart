@@ -1,10 +1,11 @@
 import 'package:coolmovies/core/models/movie.dart';
 
 import 'package:coolmovies/core/view_state_enum.dart';
-import 'package:flutter/material.dart';
+import 'package:coolmovies/view/components/base_view_model.dart';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class HomeViewModel extends BaseViewModel {
   final GraphQLClient graphQLClient;
   HomeViewModel({required this.graphQLClient});
 
@@ -12,11 +13,12 @@ class HomeViewModel extends ChangeNotifier {
 
   List<Movie> get movies => _movies;
 
-  ViewState _viewState = ViewState.LOADING;
-  ViewState get viewState => _viewState;
+  @override
+  Future<void> onModelReady() async {
+    await fetchMovies();
+  }
 
   Future<void> fetchMovies() async {
-    await Future.delayed(const Duration(seconds: 3));
     final QueryResult result = await graphQLClient.query(
       QueryOptions(
         document: gql(
@@ -44,7 +46,7 @@ class HomeViewModel extends ChangeNotifier {
       ),
     );
     if (result.hasException) {
-      _viewState = ViewState.ERROR;
+      viewState = ViewState.ERROR;
     } else {
       _movies = result.data!['allMovies']['nodes']
           .map<Movie>(
@@ -57,7 +59,7 @@ class HomeViewModel extends ChangeNotifier {
           )
           .toList();
 
-      _viewState = ViewState.SUCCESS;
+      viewState = ViewState.SUCCESS;
       notifyListeners();
     }
   }

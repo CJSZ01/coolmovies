@@ -17,7 +17,7 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () =>
           HomeViewModel(graphQLClient: GraphQLProvider.of(context).value),
-      onModelReady: (model) => model.fetchMovies(),
+      onModelReady: (model) => model.onModelReady(),
       builder: (context, viewModel, child) {
         switch (viewModel.viewState) {
           case ViewState.LOADING:
@@ -37,7 +37,9 @@ class HomeView extends StatelessWidget {
                     itemCount: viewModel.movies.length,
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 150, mainAxisExtent: 222),
+                      maxCrossAxisExtent: 150,
+                      mainAxisExtent: 222,
+                    ),
                     itemBuilder: (context, index) {
                       return MovieTile(
                         title: viewModel.movies[index].title,
