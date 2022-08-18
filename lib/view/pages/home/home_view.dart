@@ -2,6 +2,7 @@ import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_view.dart';
 import 'package:coolmovies/view/pages/home/components/home_app_bar.dart';
 import 'package:coolmovies/view/pages/home/components/home_bottom_navigation.dart';
+import 'package:coolmovies/view/pages/home/components/movie_tile.dart';
 import 'package:coolmovies/view/pages/home/home_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +28,28 @@ class HomeView extends StatelessWidget {
             );
           case ViewState.SUCCESS:
             return BaseView(
-              child: Center(
-                child: Column(
-                    children:
-                        viewModel.movies.map((e) => Text(e.title)).toList()),
-              ),
               appBar: HomeAppBar(title: 'O que vamos assistir hoje?'),
               bottomNavigationBar: const HomeBottomNavigation(),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    itemCount: viewModel.movies.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 150, mainAxisExtent: 222),
+                    itemBuilder: (context, index) {
+                      return MovieTile(
+                        title: viewModel.movies[index].title,
+                        imgUrl: viewModel.movies[index].imgUrl,
+                      );
+                    },
+                  ),
+                  // child: MovieTile(
+                  //     title: viewModel.movies[0].title,
+                  //     imgUrl: viewModel.movies[0].imgUrl),
+                ),
+              ),
             );
         }
       },

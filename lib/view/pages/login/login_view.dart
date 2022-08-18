@@ -27,7 +27,9 @@ class LoginView extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () => Navigator.pushReplacementNamed(
-                          context, AppRoutes.home),
+                        context,
+                        AppRoutes.home,
+                      ),
                       child: const Text('Login'),
                     ),
                     ElevatedButton(

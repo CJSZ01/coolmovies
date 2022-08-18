@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:coolmovies/core/models/movie.dart';
 
 import 'package:coolmovies/core/view_state_enum.dart';
@@ -18,7 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   ViewState get viewState => _viewState;
 
   Future<void> fetchMovies() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     final QueryResult result = await graphQLClient.query(
       QueryOptions(
         document: gql(
@@ -54,10 +52,11 @@ class HomeViewModel extends ChangeNotifier {
               id: movie['id'],
               title: movie['title'],
               releaseDate: movie['releaseDate'],
-              imgUrl: movie['releaseDate'],
+              imgUrl: movie['imgUrl'],
             ),
           )
           .toList();
+
       _viewState = ViewState.SUCCESS;
       notifyListeners();
     }
