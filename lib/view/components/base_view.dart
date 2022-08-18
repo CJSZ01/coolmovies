@@ -8,14 +8,15 @@ class BaseView extends StatelessWidget {
   }) : super(key: key);
 
   final Widget child;
-
   final PreferredSizeWidget? appBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
-      body: SafeArea(child: child),
+      body: SafeArea(
+        child: child,
+      ),
     );
   }
 }

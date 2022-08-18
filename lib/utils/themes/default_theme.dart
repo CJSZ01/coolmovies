@@ -12,6 +12,15 @@ class DefaultTheme {
       backgroundColor: DefaultColors.background,
     ),
     scaffoldBackgroundColor: DefaultColors.background,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+        ),
+      ),
+    ),
     textTheme: TextTheme(
       headline1: GoogleFonts.signika(
         fontSize: 99,
