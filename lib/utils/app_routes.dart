@@ -11,8 +11,8 @@ class AppRoutes {
   static String get movieDetails => '/movie_details';
 
   static final _routes = <String, WidgetBuilder>{
-    '/login': (context) => const LoginView(),
-    '/home': (context) => const HomeView(),
-    '/movie_details': (context) => const MovieDetailsView()
+    login: (context) => const LoginView(),
+    home: (context) => const HomeView(),
+    movieDetails: (context) => const MovieDetailsView()
   };
 }

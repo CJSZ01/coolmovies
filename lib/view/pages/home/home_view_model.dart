@@ -1,4 +1,5 @@
 import 'package:coolmovies/core/models/movie.dart';
+import 'package:coolmovies/core/queries.dart';
 
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_view_model.dart';
@@ -22,26 +23,7 @@ class HomeViewModel extends BaseViewModel {
     final QueryResult result = await graphQLClient.query(
       QueryOptions(
         document: gql(
-          r'''
-          query AllMovies {
-            allMovies {
-              nodes {
-                id
-                imgUrl
-                movieDirectorId
-                userCreatorId
-                title
-                releaseDate
-                nodeId
-                userByUserCreatorId {
-                  id
-                  name
-                  nodeId
-                }
-              }
-            }
-          }
-        ''',
+          GraphQLQueries.getAllMovies,
         ),
       ),
     );

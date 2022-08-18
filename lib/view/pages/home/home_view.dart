@@ -1,6 +1,7 @@
 import 'package:coolmovies/core/view_state_enum.dart';
+import 'package:coolmovies/utils/app_routes.dart';
+import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
-import 'package:coolmovies/view/pages/home/components/home_app_bar.dart';
 import 'package:coolmovies/view/pages/home/components/home_bottom_navigation.dart';
 import 'package:coolmovies/view/pages/home/components/movie_tile.dart';
 import 'package:coolmovies/view/pages/home/home_view_model.dart';
@@ -28,7 +29,7 @@ class HomeView extends StatelessWidget {
             );
           case ViewState.SUCCESS:
             return BaseView(
-              appBar: HomeAppBar(title: 'O que vamos assistir hoje?'),
+              appBar: BaseAppBar(title: 'O que vamos assistir hoje?'),
               bottomNavigationBar: const HomeBottomNavigation(),
               child: Center(
                 child: Padding(
@@ -41,9 +42,13 @@ class HomeView extends StatelessWidget {
                       mainAxisExtent: 222,
                     ),
                     itemBuilder: (context, index) {
+                      final currentMovie = viewModel.movies[index];
                       return MovieTile(
-                        title: viewModel.movies[index].title,
-                        imgUrl: viewModel.movies[index].imgUrl,
+                        title: currentMovie.title,
+                        imgUrl: currentMovie.imgUrl,
+                        onTap: () => Navigator.pushNamed(
+                            context, AppRoutes.movieDetails,
+                            arguments: currentMovie),
                       );
                     },
                   ),
