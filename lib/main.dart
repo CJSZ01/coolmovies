@@ -1,4 +1,7 @@
 import 'dart:io';
+
+import 'package:coolmovies/utils/themes/default_theme.dart';
+import 'package:coolmovies/view/pages/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -41,16 +44,17 @@ class CoolMoviesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CoolMovies',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Coolmovies'),
+      theme: DefaultTheme.themeData,
+      home: const LoginView(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
   final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -59,8 +63,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final ValueNotifier<Map<String, dynamic>?> _data = ValueNotifier(null);
   Future<void> _fetchData() async {
-    print('Fetching data...');
-    var client = GraphQLProvider.of(context).value;
+    final client = GraphQLProvider.of(context).value;
 
     final QueryResult result = await client.query(
       QueryOptions(
@@ -90,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     if (result.hasException) {
-      print(result.exception.toString());
+      // print(result.exception.toString());
     }
 
     if (result.data != null) {
@@ -114,10 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Padding(
                   padding: EdgeInsets.only(top: 36.0),
                   child: Text(
-                    """Thank you for taking the time to take our test. We really appreciate it.
+                    '''
+Thank you for taking the time to take our test. We really appreciate it.
 All the information on what is required can be found in the README at the root of this repo.
 Please dont spend ages on this and just get through as much of it as you can.
-Good luck! :)""",
+Good luck! :)''',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -151,7 +155,6 @@ Good luck! :)""",
                               color: Colors.grey[300],
                               border: Border.all(
                                 color: Colors.grey.shade700,
-                                width: 1,
                               ),
                               borderRadius: BorderRadius.circular(4),
                             ),
