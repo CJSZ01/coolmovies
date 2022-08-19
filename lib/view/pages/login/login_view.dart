@@ -10,6 +10,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView(
+      showFAB: false,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Column(

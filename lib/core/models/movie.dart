@@ -6,11 +6,13 @@ class Movie {
   String title;
   String releaseDate;
   String imgUrl;
+  String directorName;
   Movie({
     required this.id,
     required this.title,
     required this.releaseDate,
     required this.imgUrl,
+    required this.directorName,
   });
 
   Movie copyWith({
@@ -18,12 +20,14 @@ class Movie {
     String? title,
     String? releaseDate,
     String? imgUrl,
+    String? directorName,
   }) {
     return Movie(
       id: id ?? this.id,
       title: title ?? this.title,
       releaseDate: releaseDate ?? this.releaseDate,
       imgUrl: imgUrl ?? this.imgUrl,
+      directorName: directorName ?? this.directorName,
     );
   }
 
@@ -33,6 +37,7 @@ class Movie {
       'title': title,
       'releaseDate': releaseDate,
       'imgUrl': imgUrl,
+      'directorName': directorName,
     };
   }
 
@@ -42,6 +47,7 @@ class Movie {
       title: map['title'] as String,
       releaseDate: map['releaseDate'] as String,
       imgUrl: map['imgUrl'] as String,
+      directorName: map['directorName'] as String,
     );
   }
 
@@ -52,19 +58,18 @@ class Movie {
 
   @override
   String toString() {
-    return 'Movie(id: $id, title: $title, releaseDate: $releaseDate, imgUrl: $imgUrl)';
+    return 'Movie(id: $id, title: $title, releaseDate: $releaseDate, imgUrl: $imgUrl, directorName: $directorName)';
   }
 
   @override
   bool operator ==(covariant Movie other) {
-    if (identical(this, other)) {
-      return true;
-    }
+    if (identical(this, other)) return true;
 
     return other.id == id &&
         other.title == title &&
         other.releaseDate == releaseDate &&
-        other.imgUrl == imgUrl;
+        other.imgUrl == imgUrl &&
+        other.directorName == directorName;
   }
 
   @override
@@ -72,6 +77,7 @@ class Movie {
     return id.hashCode ^
         title.hashCode ^
         releaseDate.hashCode ^
-        imgUrl.hashCode;
+        imgUrl.hashCode ^
+        directorName.hashCode;
   }
 }

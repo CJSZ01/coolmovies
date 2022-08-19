@@ -30,8 +30,70 @@ class MovieDetailsView extends StatelessWidget {
             );
           case ViewState.SUCCESS:
             return BaseView(
-                appBar: BaseAppBar(title: model.movie.title),
-                child: Text(model.movie.title));
+              showFAB: true,
+              onPressFAB: () {
+                Navigator.pop(context);
+              },
+              appBar: BaseAppBar(title: model.movie.title),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Image.network(
+                            model.movie.imgUrl,
+                            height: 300,
+                          ),
+                        ),
+                        const Divider(),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Data de lançamento: ',
+                            style: Theme.of(context).textTheme.bodyText1,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: model.movie.releaseDate,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(),
+                        RichText(
+                          text: TextSpan(
+                            text: 'Diretor: ',
+                            style: Theme.of(context).textTheme.bodyText1,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: model.movie.directorName,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Divider(),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
         }
       },
     );

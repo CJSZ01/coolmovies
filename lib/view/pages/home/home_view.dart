@@ -29,6 +29,7 @@ class HomeView extends StatelessWidget {
             );
           case ViewState.SUCCESS:
             return BaseView(
+              showFAB: false,
               appBar: BaseAppBar(title: 'O que vamos assistir hoje?'),
               bottomNavigationBar: const HomeBottomNavigation(),
               child: Center(

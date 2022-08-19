@@ -10,6 +10,9 @@ class GraphQLQueries {
                 title
                 releaseDate
                 nodeId
+                movieDirectorByMovieDirectorId{
+		          	  name
+	              	}
                 userByUserCreatorId {
                   id
                   name

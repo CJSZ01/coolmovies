@@ -33,11 +33,11 @@ class HomeViewModel extends BaseViewModel {
       _movies = result.data!['allMovies']['nodes']
           .map<Movie>(
             (movie) => Movie(
-              id: movie['id'],
-              title: movie['title'],
-              releaseDate: movie['releaseDate'],
-              imgUrl: movie['imgUrl'],
-            ),
+                id: movie['id'],
+                title: movie['title'],
+                releaseDate: movie['releaseDate'],
+                imgUrl: movie['imgUrl'],
+                directorName: movie['movieDirectorByMovieDirectorId']['name']),
           )
           .toList();
 
