@@ -47,7 +47,7 @@ class Movie {
       title: map['title'] as String,
       releaseDate: map['releaseDate'] as String,
       imgUrl: map['imgUrl'] as String,
-      directorName: map['directorName'] as String,
+      directorName: map['movieDirectorByMovieDirectorId']['name'] as String,
     );
   }
 
