@@ -4,7 +4,6 @@ import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';

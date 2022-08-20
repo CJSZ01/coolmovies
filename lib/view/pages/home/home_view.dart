@@ -1,3 +1,4 @@
+import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
@@ -34,22 +35,27 @@ class HomeView extends StatelessWidget {
               bottomNavigationBar: const HomeBottomNavigation(),
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(32.0),
                   child: GridView.builder(
+                    physics: const PageScrollPhysics(),
                     itemCount: viewModel.movies.length,
                     gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 150,
-                      mainAxisExtent: 222,
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.65,
+                      crossAxisSpacing: 20,
                     ),
                     itemBuilder: (context, index) {
                       final currentMovie = viewModel.movies[index];
                       return MovieTile(
                         title: currentMovie.title,
+                        rating: currentMovie.getReviewAverage(),
                         imgUrl: currentMovie.imgUrl,
                         onTap: () => Navigator.pushNamed(
-                            context, AppRoutes.movieDetails,
-                            arguments: currentMovie),
+                          context,
+                          AppRoutes.movieDetails,
+                          arguments: currentMovie,
+                        ),
                       );
                     },
                   ),

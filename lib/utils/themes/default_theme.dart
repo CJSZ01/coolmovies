@@ -6,9 +6,9 @@ class DefaultTheme {
   static ThemeData get themeData => _themeData;
 
   static final ThemeData _themeData = ThemeData(
-    pageTransitionsTheme: const PageTransitionsTheme(builders: {
-      TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()
-    }),
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {TargetPlatform.android: OpenUpwardsPageTransitionsBuilder()},
+    ),
     fontFamily: GoogleFonts.signika().fontFamily,
     colorScheme: ColorScheme.fromSwatch(
       primarySwatch: Colors.purple,

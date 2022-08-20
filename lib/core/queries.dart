@@ -22,15 +22,44 @@ class GraphQLQueries {
             }
           }
         ''';
+
+  static String getAllMoviesWithReviews() => r'''
+query {
+  allMovies {
+    nodes {
+      id
+      title
+			releaseDate
+			imgUrl
+			movieDirectorByMovieDirectorId{
+			name
+		}
+			movieReviewsByMovieId{nodes{title, body, rating}
+			}
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+		
+  }
+}''';
+
   static String getMovieReviewsByMovie(String movieId) => '''
-          query allMovieReviews {
-            allMovieReviews(filter: {movieId: {equalTo: "$movieId"}}) {
-              nodes {
-                title
-                body
-                rating
-              }
-            }
-          }
+          query{
+  allMovieReviews(
+    filter: {movieId: {equalTo: "$movieId"}}
+  ) {
+    nodes {
+      title
+      body
+      rating
+      movieByMovieId {
+        title
+      }
+    }
+  }
+}
+
         ''';
 }

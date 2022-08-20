@@ -1,11 +1,11 @@
 import 'package:coolmovies/core/models/review.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class MovieReviewsList extends StatelessWidget {
-  const MovieReviewsList({Key? key, required this.reviews}) : super(key: key);
+  const MovieReviewsList({
+    required this.reviews,
+    Key? key,
+  }) : super(key: key);
 
   final List<Review> reviews;
 

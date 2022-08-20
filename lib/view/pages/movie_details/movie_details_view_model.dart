@@ -35,10 +35,13 @@ class MovieDetailsViewModel extends BaseViewModel {
       viewState = ViewState.ERROR;
     } else {
       _reviews = result.data!['allMovieReviews']['nodes']
-          .map<Review>((reviewMap) => Review(
+          .map<Review>(
+            (reviewMap) => Review(
               title: reviewMap['title'],
               body: reviewMap['body'],
-              rating: reviewMap['rating']))
+              rating: reviewMap['rating'],
+            ),
+          )
           .toList();
       viewState = ViewState.SUCCESS;
     }

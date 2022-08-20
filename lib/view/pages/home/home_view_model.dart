@@ -23,7 +23,7 @@ class HomeViewModel extends BaseViewModel {
     final QueryResult result = await graphQLClient.query(
       QueryOptions(
         document: gql(
-          GraphQLQueries.getAllMovies,
+          GraphQLQueries.getAllMoviesWithReviews(),
         ),
       ),
     );

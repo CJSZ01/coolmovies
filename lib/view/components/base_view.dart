@@ -52,8 +52,10 @@ class BaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (showFAB == true) {
-      assert(onPressFAB != null,
-          'When enabling the Floating Action Button (FAB), the parameter onPressFAB must be supplied.');
+      assert(
+        onPressFAB != null,
+        'When enabling the Floating Action Button (FAB), the parameter onPressFAB must be supplied.',
+      );
     }
     return Scaffold(
       floatingActionButton: showFAB
