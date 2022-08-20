@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
+import 'package:coolmovies/core/models/user.dart';
 import 'package:coolmovies/core/queries.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_view_model.dart';
@@ -40,6 +41,7 @@ class MovieDetailsViewModel extends BaseViewModel {
               title: reviewMap['title'],
               body: reviewMap['body'],
               rating: reviewMap['rating'],
+              user: User.fromMap(reviewMap['userByUserReviewerId']),
             ),
           )
           .toList();

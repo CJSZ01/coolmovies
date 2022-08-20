@@ -54,6 +54,7 @@ query {
       title
       body
       rating
+      userByUserReviewerId{ id, name}
       movieByMovieId {
         title
       }
