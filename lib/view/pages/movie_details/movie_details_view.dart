@@ -29,13 +29,27 @@ class MovieDetailsView extends StatelessWidget {
               errorMessage: 'Ocorreu um erro ao carregar este filme.',
             );
           case ViewState.SUCCESS:
-            return BaseView(
-              showFAB: true,
-              onPressFAB: () {
-                Navigator.pop(context);
-              },
+            return Scaffold(
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.startFloat,
+              floatingActionButton: Row(
+                children: [
+                  FloatingActionButton(
+                    child: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 35.0),
+                    child: FloatingActionButton(
+                      child: const Icon(Icons.add),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
               appBar: BaseAppBar(title: model.movie.title),
-              child: LayoutBuilder(
+              body: LayoutBuilder(
                 builder: (context, constraints) {
                   return SingleChildScrollView(
                     child: Padding(
@@ -92,7 +106,7 @@ class MovieDetailsView extends StatelessWidget {
                           ),
                           const Divider(),
                           MovieReviewsList(reviews: model.reviews),
-                          SizedBox(
+                          const SizedBox(
                             height: 75,
                           ),
                         ],
