@@ -3,6 +3,7 @@ import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
+import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -43,7 +44,16 @@ class MovieDetailsView extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 35.0),
                     child: FloatingActionButton(
                       child: const Icon(Icons.add),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ReviewDialog(
+                              movie: movie,
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],

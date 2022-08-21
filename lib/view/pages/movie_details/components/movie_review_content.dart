@@ -15,7 +15,14 @@ class MovieReviewContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: [Text(review.user!.name)],
+          children: [
+            Text(
+              review.user!.name,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            Text(review.rating.toDouble().toString())
+          ],
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

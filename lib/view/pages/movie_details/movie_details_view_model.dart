@@ -50,4 +50,6 @@ class MovieDetailsViewModel extends BaseViewModel {
     notifyListeners();
     log(reviews.toString());
   }
+
+  Future<void> showReviewDialog() async {}
 }
