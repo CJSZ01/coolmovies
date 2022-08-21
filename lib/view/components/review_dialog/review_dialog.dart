@@ -1,21 +1,26 @@
 import 'package:coolmovies/core/models/movie.dart';
+import 'package:coolmovies/core/models/review.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/review_dialog/review_dialog_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class ReviewDialog extends StatelessWidget {
   const ReviewDialog({
     required this.movie,
+    required this.onReviewCreated,
     Key? key,
   }) : super(key: key);
   final Movie movie;
+  final Function(Review) onReviewCreated;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ReviewDialogViewModel>.reactive(
-        viewModelBuilder: () => ReviewDialogViewModel(movie),
+        viewModelBuilder: () =>
+            ReviewDialogViewModel(movie, GraphQLProvider.of(context).value),
         onModelReady: (viewModel) => viewModel.onModelReady(),
         builder: (context, viewModel, child) {
           return Dialog(
@@ -89,7 +94,14 @@ class ReviewDialog extends StatelessWidget {
                         child: Center(
                           child: viewModel.viewState == ViewState.SUCCESS
                               ? ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    final response =
+                                        await viewModel.submitReview();
+                                    response.fold((l) => null, (r) {
+                                      onReviewCreated(r);
+                                      Navigator.pop(context);
+                                    });
+                                  },
                                   child: const Text('Salvar'),
                                 )
                               : const CircularProgressIndicator(),

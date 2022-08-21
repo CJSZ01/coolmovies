@@ -55,12 +55,9 @@ query {
       body
       rating
       userByUserReviewerId{ id, name}
-      movieByMovieId {
-        title
-      }
+     
     }
   }
 }
-
         ''';
 }

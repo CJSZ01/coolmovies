@@ -43,7 +43,7 @@ class Review {
       title: map['title'] as String,
       body: map['body'] as String,
       rating: map['rating'] as int,
-      user: map['user'] != null
+      user: map['userByUserReviewerId'] != null
           ? User.fromMap(map['userByUserReviewerId'] as Map<String, dynamic>)
           : null,
     );

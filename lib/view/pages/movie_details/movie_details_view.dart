@@ -36,6 +36,7 @@ class MovieDetailsView extends StatelessWidget {
               floatingActionButton: Row(
                 children: [
                   FloatingActionButton(
+                    heroTag: null,
                     child: const Icon(Icons.arrow_back),
                     onPressed: () => Navigator.pop(context),
                   ),
@@ -50,6 +51,9 @@ class MovieDetailsView extends StatelessWidget {
                           builder: (context) {
                             return ReviewDialog(
                               movie: movie,
+                              onReviewCreated: (review) {
+                                model.addReview(review);
+                              },
                             );
                           },
                         );
