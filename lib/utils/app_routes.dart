@@ -1,7 +1,9 @@
+import 'package:coolmovies/core/repositories/implementations/review_repository_implementation.dart';
 import 'package:coolmovies/view/pages/home/home_view.dart';
 import 'package:coolmovies/view/pages/login/login_view.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> get routes => _routes;
@@ -13,6 +15,8 @@ class AppRoutes {
   static final _routes = <String, WidgetBuilder>{
     login: (context) => const LoginView(),
     home: (context) => const HomeView(),
-    movieDetails: (context) => const MovieDetailsView()
+    movieDetails: (context) => MovieDetailsView(
+          repository: IReviewRepository(GraphQLProvider.of(context).value),
+        )
   };
 }

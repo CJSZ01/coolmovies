@@ -10,10 +10,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class MovieDetailsViewModel extends BaseViewModel {
   final Movie movie;
-  final GraphQLClient graphQLClient;
-  final ReviewRepository _reviewRepository;
-  MovieDetailsViewModel({required this.movie, required this.graphQLClient})
-      : _reviewRepository = IReviewRepository(graphQLClient);
+  final ReviewRepository reviewRepository;
+  MovieDetailsViewModel({
+    required this.reviewRepository,
+    required this.movie,
+  });
 
   List<Review> _reviews = [];
   List<Review> get reviews => _reviews;
@@ -21,22 +22,21 @@ class MovieDetailsViewModel extends BaseViewModel {
   @override
   Future<void> onModelReady() async {
     await fetchMovieReviews();
-
     return super.onModelReady();
   }
 
   Future<void> fetchMovieReviews() async {
-    final result = await _reviewRepository.getMovieReviews(movie);
+    final result = await reviewRepository.getMovieReviews(movie);
     result.fold((exception) {
       log(exception.toString());
       viewState = ViewState.ERROR;
       notifyListeners();
     }, (reviews) {
-      _reviews = reviews;
-      _reviews.sort(
-        (a, b) =>
-            a.user!.name.toLowerCase().compareTo(b.user!.name.toLowerCase()),
-      );
+      _reviews = reviews
+        ..sort(
+          (a, b) =>
+              a.user!.name.toLowerCase().compareTo(b.user!.name.toLowerCase()),
+        );
       viewState = ViewState.SUCCESS;
       notifyListeners();
     });
@@ -49,7 +49,7 @@ class MovieDetailsViewModel extends BaseViewModel {
     viewState = ViewState.LOADING;
     notifyListeners();
     final response =
-        await _reviewRepository.deleteMovieReviewById(deletingReview);
+        await reviewRepository.deleteMovieReviewById(deletingReview);
     response.fold((exception) {
       viewState = ViewState.ERROR;
       notifyListeners();

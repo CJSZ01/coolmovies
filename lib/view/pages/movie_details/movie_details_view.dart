@@ -1,5 +1,6 @@
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
+import 'package:coolmovies/core/repositories/review_repository.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
@@ -11,16 +12,16 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class MovieDetailsView extends StatelessWidget {
-  const MovieDetailsView({Key? key}) : super(key: key);
+  const MovieDetailsView({required this.repository, Key? key})
+      : super(key: key);
+  final ReviewRepository repository;
 
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments as Movie;
     return ViewModelBuilder<MovieDetailsViewModel>.reactive(
-      viewModelBuilder: () => MovieDetailsViewModel(
-        movie: movie,
-        graphQLClient: GraphQLProvider.of(context).value,
-      ),
+      viewModelBuilder: () =>
+          MovieDetailsViewModel(movie: movie, reviewRepository: repository),
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) {
         switch (model.viewState) {

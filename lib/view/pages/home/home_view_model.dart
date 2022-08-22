@@ -29,6 +29,7 @@ class HomeViewModel extends BaseViewModel {
     );
     if (result.hasException) {
       viewState = ViewState.ERROR;
+      notifyListeners();
     } else {
       final _moviesMap = result.data!['allMovies']['nodes'];
       _movies = _moviesMap.map<Movie>((map) => Movie.fromMap(map)).toList();
