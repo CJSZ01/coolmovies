@@ -1,5 +1,6 @@
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
+import 'package:coolmovies/core/repositories/interfaces/review_repository_interface.dart';
 import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_review_content.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_review_header.dart';
@@ -12,13 +13,16 @@ class MovieReviewsList extends StatelessWidget {
     required this.movie,
     required this.onReviewEdited,
     required this.onReviewDeleted,
+    required final IReviewRepository reviewRepository,
     Key? key,
-  }) : super(key: key);
+  })  : _reviewRepository = reviewRepository,
+        super(key: key);
 
   final List<Review> reviews;
   final Movie movie;
   final Function(int index, Review newReview) onReviewEdited;
   final Function(int index, Review deletedReview) onReviewDeleted;
+  final IReviewRepository _reviewRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +71,7 @@ class MovieReviewsList extends StatelessWidget {
                                 );
                               },
                               review: currentReview,
+                              reviewRepository: _reviewRepository,
                             ),
                           );
                         },

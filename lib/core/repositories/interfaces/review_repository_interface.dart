@@ -3,7 +3,7 @@ import 'package:coolmovies/core/models/review.dart';
 import 'package:coolmovies/utils/either.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-abstract class ReviewRepository {
+abstract class IReviewRepository {
   Future<Either<OperationException, List<Review>>> getMovieReviews(Movie movie);
 
   Future<Either<OperationException, Review>> createMovieReview(

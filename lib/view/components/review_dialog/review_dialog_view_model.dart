@@ -1,8 +1,7 @@
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
 import 'package:coolmovies/core/models/user.dart';
-import 'package:coolmovies/core/repositories/implementations/review_repository_implementation.dart';
-import 'package:coolmovies/core/repositories/review_repository.dart';
+import 'package:coolmovies/core/repositories/interfaces/review_repository_interface.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/utils/either.dart';
 import 'package:coolmovies/view/components/base_view_model.dart';
@@ -11,21 +10,20 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ReviewDialogViewModel extends BaseViewModel {
   final Movie movie;
-  final GraphQLClient graphQLClient;
   final Review? editingReview;
+  final IReviewRepository _repository;
 
   ReviewDialogViewModel({
     required this.movie,
-    required this.graphQLClient,
+    required final IReviewRepository reviewRepository,
     this.editingReview,
-  }) : _reviewRepository = IReviewRepository(graphQLClient);
+  }) : _repository = reviewRepository;
 
   final TextEditingController _reviewTitleController = TextEditingController();
   TextEditingController get reviewTitleController => _reviewTitleController;
   final TextEditingController _reviewBodyController = TextEditingController();
   TextEditingController get reviewBodyController => _reviewBodyController;
   double reviewRating = 0;
-  final ReviewRepository _reviewRepository;
 
   @override
   Future<void> onModelReady() {
@@ -49,7 +47,7 @@ class ReviewDialogViewModel extends BaseViewModel {
       //TODO: Implement real user
       user: User(name: '', id: '5f1e6707-7c3a-4acd-b11f-fd96096abd5a'),
     );
-    final response = await _reviewRepository.createMovieReview(movie, review);
+    final response = await _repository.createMovieReview(movie, review);
     response.fold((exception) {
       viewState = ViewState.ERROR;
       notifyListeners();
@@ -70,8 +68,7 @@ class ReviewDialogViewModel extends BaseViewModel {
       title: _reviewTitleController.text,
       rating: reviewRating.toInt(),
     );
-    final response =
-        await _reviewRepository.updateMovieReviewById(updatingReview);
+    final response = await _repository.updateMovieReviewById(updatingReview);
     response.fold((exception) {
       viewState = ViewState.ERROR;
       notifyListeners();

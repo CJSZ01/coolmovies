@@ -1,33 +1,37 @@
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
+import 'package:coolmovies/core/repositories/interfaces/review_repository_interface.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/review_dialog/review_dialog_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class ReviewDialog extends StatelessWidget {
-  const ReviewDialog({
-    required this.movie,
-    required this.onReviewCreated,
-    Key? key,
-  })  : onReviewEdited = null,
-        review = null,
-        super(key: key);
-
   final Movie movie;
-
   final Function(Review)? onReviewCreated;
   final Review? review;
   final Function(Review)? onReviewEdited;
+  final IReviewRepository _repository;
+
+  const ReviewDialog({
+    required this.movie,
+    required this.onReviewCreated,
+    required final IReviewRepository reviewRepository,
+    Key? key,
+  })  : onReviewEdited = null,
+        review = null,
+        _repository = reviewRepository,
+        super(key: key);
 
   const ReviewDialog.edit({
     required this.movie,
     required this.onReviewEdited,
     required this.review,
+    required final IReviewRepository reviewRepository,
     Key? key,
   })  : onReviewCreated = null,
+        _repository = reviewRepository,
         super(key: key);
 
   @override
@@ -37,7 +41,7 @@ class ReviewDialog extends StatelessWidget {
     return ViewModelBuilder<ReviewDialogViewModel>.reactive(
       viewModelBuilder: () => ReviewDialogViewModel(
         movie: movie,
-        graphQLClient: GraphQLProvider.of(context).value,
+        reviewRepository: _repository,
         editingReview: review,
       ),
       onModelReady: (viewModel) => viewModel.onModelReady(),

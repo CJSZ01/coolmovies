@@ -1,6 +1,6 @@
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
-import 'package:coolmovies/core/repositories/review_repository.dart';
+import 'package:coolmovies/core/repositories/interfaces/review_repository_interface.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
@@ -8,20 +8,22 @@ import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class MovieDetailsView extends StatelessWidget {
-  const MovieDetailsView({required this.repository, Key? key})
-      : super(key: key);
-  final ReviewRepository repository;
+  const MovieDetailsView({
+    required final IReviewRepository repository,
+    Key? key,
+  })  : _repository = repository,
+        super(key: key);
+  final IReviewRepository _repository;
 
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments as Movie;
     return ViewModelBuilder<MovieDetailsViewModel>.reactive(
       viewModelBuilder: () =>
-          MovieDetailsViewModel(movie: movie, reviewRepository: repository),
+          MovieDetailsViewModel(movie: movie, reviewRepository: _repository),
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) {
         switch (model.viewState) {
@@ -56,6 +58,7 @@ class MovieDetailsView extends StatelessWidget {
                               onReviewCreated: (review) {
                                 model.addReview(review);
                               },
+                              reviewRepository: _repository,
                             );
                           },
                         );
@@ -130,6 +133,7 @@ class MovieDetailsView extends StatelessWidget {
                             onReviewDeleted: (int index, Review deletedReview) {
                               model.deleteReview(deletedReview, index);
                             },
+                            reviewRepository: _repository,
                           ),
                           const SizedBox(
                             height: 75,

@@ -3,14 +3,14 @@ import 'package:coolmovies/core/models/review.dart';
 import 'package:coolmovies/core/models/user.dart';
 import 'package:coolmovies/core/mutations.dart';
 import 'package:coolmovies/core/queries.dart';
-import 'package:coolmovies/core/repositories/review_repository.dart';
+import 'package:coolmovies/core/repositories/interfaces/review_repository_interface.dart';
 import 'package:coolmovies/utils/either.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-class IReviewRepository implements ReviewRepository {
+class ReviewRepository implements IReviewRepository {
   final GraphQLClient graphQLClient;
 
-  IReviewRepository(this.graphQLClient);
+  ReviewRepository(this.graphQLClient);
 
   @override
   Future<Either<OperationException, List<Review>>> getMovieReviews(

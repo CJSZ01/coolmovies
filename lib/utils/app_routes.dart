@@ -1,4 +1,4 @@
-import 'package:coolmovies/core/repositories/implementations/review_repository_implementation.dart';
+import 'package:coolmovies/core/repositories/implementations/review_repository.dart';
 import 'package:coolmovies/view/pages/home/home_view.dart';
 import 'package:coolmovies/view/pages/login/login_view.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view.dart';
@@ -16,7 +16,7 @@ class AppRoutes {
     login: (context) => const LoginView(),
     home: (context) => const HomeView(),
     movieDetails: (context) => MovieDetailsView(
-          repository: IReviewRepository(GraphQLProvider.of(context).value),
+          repository: ReviewRepository(GraphQLProvider.of(context).value),
         )
   };
 }
