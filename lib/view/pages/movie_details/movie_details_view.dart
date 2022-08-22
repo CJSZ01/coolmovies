@@ -1,4 +1,5 @@
 import 'package:coolmovies/core/models/movie.dart';
+import 'package:coolmovies/core/models/review.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
@@ -124,6 +125,9 @@ class MovieDetailsView extends StatelessWidget {
                             reviews: model.reviews,
                             onReviewEdited: (index, newReview) {
                               model.updateReview(index, newReview);
+                            },
+                            onReviewDeleted: (int index, Review deletedReview) {
+                              model.deleteReview(deletedReview, index);
                             },
                           ),
                           const SizedBox(

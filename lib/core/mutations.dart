@@ -52,6 +52,14 @@ mutation UpdateMovieReviewById($reviewTitle: String!,$reviewBody: String!, $revi
 		}
 	}
 }
+''';
+
+  String get deleteMovieReviewById => r'''
+mutation deleteMovieReviewById($reviewId: UUID!) {
+	deleteMovieReviewById(input: { id: $reviewId }) {
+		deletedMovieReviewId
+	}
+}
 
 ''';
 }

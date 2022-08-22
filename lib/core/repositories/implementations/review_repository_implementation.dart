@@ -97,4 +97,26 @@ class IReviewRepository implements ReviewRepository {
       );
     }
   }
+
+  @override
+  Future<Either<OperationException, String>> deleteMovieReviewById(
+    Review review,
+  ) async {
+    final QueryResult result = await graphQLClient.mutate(
+      MutationOptions(
+        variables: {'reviewId': review.id},
+        document: gql(
+          GraphQLMutations().deleteMovieReviewById,
+        ),
+      ),
+    );
+
+    if (result.hasException) {
+      return Left(result.exception!);
+    } else {
+      return Right(
+        result.data!['deleteMovieReviewById']['deletedMovieReviewId'],
+      );
+    }
+  }
 }

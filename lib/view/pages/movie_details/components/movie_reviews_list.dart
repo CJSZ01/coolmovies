@@ -11,12 +11,14 @@ class MovieReviewsList extends StatelessWidget {
     required this.reviews,
     required this.movie,
     required this.onReviewEdited,
+    required this.onReviewDeleted,
     Key? key,
   }) : super(key: key);
 
   final List<Review> reviews;
   final Movie movie;
   final Function(int index, Review newReview) onReviewEdited;
+  final Function(int index, Review deletedReview) onReviewDeleted;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +68,12 @@ class MovieReviewsList extends StatelessWidget {
                               },
                               review: currentReview,
                             ),
+                          );
+                        },
+                        onPressDelete: () {
+                          onReviewDeleted(
+                            reviews.indexOf(currentReview),
+                            currentReview,
                           );
                         },
                       )

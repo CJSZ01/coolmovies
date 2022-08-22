@@ -14,4 +14,8 @@ abstract class ReviewRepository {
   Future<Either<OperationException, Review>> updateMovieReviewById(
     Review review,
   );
+
+  Future<Either<OperationException, String>> deleteMovieReviewById(
+    Review review,
+  );
 }

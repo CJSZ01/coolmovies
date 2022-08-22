@@ -42,6 +42,27 @@ class MovieDetailsViewModel extends BaseViewModel {
     });
   }
 
+  Future<OperationException?> deleteReview(
+    Review deletingReview,
+    int index,
+  ) async {
+    viewState = ViewState.LOADING;
+    notifyListeners();
+    final response =
+        await _reviewRepository.deleteMovieReviewById(deletingReview);
+    response.fold((exception) {
+      viewState = ViewState.ERROR;
+      notifyListeners();
+      return exception;
+    }, (deletedReviewId) {
+      viewState = ViewState.SUCCESS;
+      _reviews.removeAt(index);
+      notifyListeners();
+      deletedReviewId = deletedReviewId;
+    });
+    return null;
+  }
+
   void addReview(Review review) {
     _reviews.add(review);
     notifyListeners();

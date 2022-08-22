@@ -5,11 +5,13 @@ class MovieReviewContent extends StatelessWidget {
   const MovieReviewContent({
     required this.review,
     required this.onPressEdit,
+    required this.onPressDelete,
     Key? key,
   }) : super(key: key);
 
   final Review review;
   final VoidCallback onPressEdit;
+  final VoidCallback onPressDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class MovieReviewContent extends StatelessWidget {
                 width: 10,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressDelete,
                 child: const Text('Excluir'),
               )
             ],
