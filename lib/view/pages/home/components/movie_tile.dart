@@ -117,7 +117,7 @@ class MovieTile extends StatelessWidget {
                                         .background,
                                   ),
                                   Text(
-                                    rating.toString(),
+                                    rating.toStringAsFixed(2),
                                     style: Theme.of(context)
                                         .textTheme
                                         .caption!

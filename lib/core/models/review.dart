@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'package:coolmovies/core/models/user.dart';
 
 class Review {
+  String id;
   String title;
   String body;
   int rating;
   User? user;
   Review({
+    required this.id,
     required this.title,
     required this.body,
     required this.rating,
@@ -16,12 +18,14 @@ class Review {
   });
 
   Review copyWith({
+    String? id,
     String? title,
     String? body,
     int? rating,
     User? user,
   }) {
     return Review(
+      id: id ?? this.id,
       title: title ?? this.title,
       body: body ?? this.body,
       rating: rating ?? this.rating,
@@ -31,6 +35,7 @@ class Review {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'body': body,
       'rating': rating,
@@ -40,6 +45,7 @@ class Review {
 
   factory Review.fromMap(Map<String, dynamic> map) {
     return Review(
+      id: map['id'] as String,
       title: map['title'] as String,
       body: map['body'] as String,
       rating: map['rating'] as int,
@@ -61,7 +67,9 @@ class Review {
 
   @override
   bool operator ==(covariant Review other) {
-    if (identical(this, other)) return true;
+    if (identical(this, other)) {
+      return true;
+    }
 
     return other.title == title &&
         other.body == body &&

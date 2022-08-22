@@ -1,18 +1,22 @@
+import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
+import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_review_content.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_review_header.dart';
-import 'package:coolmovies/view/pages/movie_details/components/user_avatar.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MovieReviewsList extends StatelessWidget {
   const MovieReviewsList({
     required this.reviews,
+    required this.movie,
+    required this.onReviewEdited,
     Key? key,
   }) : super(key: key);
 
   final List<Review> reviews;
+  final Movie movie;
+  final Function(int index, Review newReview) onReviewEdited;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +51,24 @@ class MovieReviewsList extends StatelessWidget {
                   expanded: Column(
                     children: [
                       MovieReviewHeader(review: currentReview),
-                      MovieReviewContent(review: currentReview)
+                      MovieReviewContent(
+                        review: currentReview,
+                        onPressEdit: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => ReviewDialog.edit(
+                              movie: movie,
+                              onReviewEdited: (review) {
+                                onReviewEdited(
+                                  reviews.indexOf(currentReview),
+                                  review,
+                                );
+                              },
+                              review: currentReview,
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                   collapsed: MovieReviewHeader(review: currentReview),

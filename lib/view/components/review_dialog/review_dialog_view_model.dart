@@ -10,14 +10,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ReviewDialogViewModel extends BaseViewModel {
-  final Movie _movie;
+  final Movie movie;
   final GraphQLClient graphQLClient;
+  final Review? editingReview;
 
-  ReviewDialogViewModel(
-    this._movie,
-    this.graphQLClient,
-  ) : _reviewRepository = IReviewRepository(graphQLClient);
-  Movie get movie => _movie;
+  ReviewDialogViewModel({
+    required this.movie,
+    required this.graphQLClient,
+    this.editingReview,
+  }) : _reviewRepository = IReviewRepository(graphQLClient);
 
   final TextEditingController _reviewTitleController = TextEditingController();
   TextEditingController get reviewTitleController => _reviewTitleController;
@@ -28,19 +29,26 @@ class ReviewDialogViewModel extends BaseViewModel {
 
   @override
   Future<void> onModelReady() {
+    if (editingReview != null) {
+      _reviewTitleController.text = editingReview!.title;
+      _reviewBodyController.text = editingReview!.body;
+      reviewRating = editingReview!.rating.toDouble();
+    }
     viewState = ViewState.SUCCESS;
     return super.onModelReady();
   }
 
-  Future<Either<OperationException, Review>> submitReview() async {
+  Future<Either<OperationException, Review>> createReview() async {
     viewState = ViewState.LOADING;
     notifyListeners();
     Review review = Review(
-        body: reviewBodyController.text,
-        title: reviewTitleController.text,
-        rating: reviewRating.toInt(),
-        //TODO: Implement real user
-        user: User(name: '', id: '5f1e6707-7c3a-4acd-b11f-fd96096abd5a'));
+      id: '',
+      body: reviewBodyController.text,
+      title: reviewTitleController.text,
+      rating: reviewRating.toInt(),
+      //TODO: Implement real user
+      user: User(name: '', id: '5f1e6707-7c3a-4acd-b11f-fd96096abd5a'),
+    );
     final response = await _reviewRepository.createMovieReview(movie, review);
     response.fold((exception) {
       viewState = ViewState.ERROR;
@@ -52,5 +60,27 @@ class ReviewDialogViewModel extends BaseViewModel {
       review = createdReview;
     });
     return Right(review);
+  }
+
+  Future<Either<OperationException, Review>> updateReview() async {
+    viewState = ViewState.LOADING;
+    notifyListeners();
+    var updatingReview = editingReview!.copyWith(
+      body: _reviewBodyController.text,
+      title: _reviewTitleController.text,
+      rating: reviewRating.toInt(),
+    );
+    final response =
+        await _reviewRepository.updateMovieReviewById(updatingReview);
+    response.fold((exception) {
+      viewState = ViewState.ERROR;
+      notifyListeners();
+      return Left(exception);
+    }, (createdReview) {
+      viewState = ViewState.SUCCESS;
+      notifyListeners();
+      updatingReview = createdReview;
+    });
+    return Right(updatingReview);
   }
 }

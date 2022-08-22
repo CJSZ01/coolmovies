@@ -2,7 +2,10 @@ import 'package:coolmovies/core/models/user.dart';
 import 'package:flutter/material.dart';
 
 class UserAvatar extends StatelessWidget {
-  const UserAvatar({Key? key, required this.user}) : super(key: key);
+  const UserAvatar({
+    required this.user,
+    Key? key,
+  }) : super(key: key);
   final User user;
 
   @override

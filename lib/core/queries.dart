@@ -34,7 +34,7 @@ query {
 			movieDirectorByMovieDirectorId{
 			name
 		}
-			movieReviewsByMovieId{nodes{title, body, rating}
+			movieReviewsByMovieId{nodes{id,title, body, rating}
 			}
     }
     pageInfo {
@@ -51,11 +51,11 @@ query {
     filter: {movieId: {equalTo: "$movieId"}}
   ) {
     nodes {
+      id
       title
       body
       rating
       userByUserReviewerId{ id, name}
-     
     }
   }
 }

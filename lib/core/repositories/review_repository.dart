@@ -7,5 +7,11 @@ abstract class ReviewRepository {
   Future<Either<OperationException, List<Review>>> getMovieReviews(Movie movie);
 
   Future<Either<OperationException, Review>> createMovieReview(
-      Movie movie, Review review);
+    Movie movie,
+    Review review,
+  );
+
+  Future<Either<OperationException, Review>> updateMovieReviewById(
+    Review review,
+  );
 }

@@ -12,107 +12,135 @@ class ReviewDialog extends StatelessWidget {
     required this.movie,
     required this.onReviewCreated,
     Key? key,
-  }) : super(key: key);
+  })  : onReviewEdited = null,
+        review = null,
+        super(key: key);
+
   final Movie movie;
-  final Function(Review) onReviewCreated;
+
+  final Function(Review)? onReviewCreated;
+  final Review? review;
+  final Function(Review)? onReviewEdited;
+
+  const ReviewDialog.edit({
+    required this.movie,
+    required this.onReviewEdited,
+    required this.review,
+    Key? key,
+  })  : onReviewCreated = null,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final bool isEditing = review != null;
+
     return ViewModelBuilder<ReviewDialogViewModel>.reactive(
-        viewModelBuilder: () =>
-            ReviewDialogViewModel(movie, GraphQLProvider.of(context).value),
-        onModelReady: (viewModel) => viewModel.onModelReady(),
-        builder: (context, viewModel, child) {
-          return Dialog(
-            backgroundColor: Colors.transparent,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            elevation: 5,
-            child: SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  color: Theme.of(context).colorScheme.background,
+      viewModelBuilder: () => ReviewDialogViewModel(
+        movie: movie,
+        graphQLClient: GraphQLProvider.of(context).value,
+        editingReview: review,
+      ),
+      onModelReady: (viewModel) => viewModel.onModelReady(),
+      builder: (context, viewModel, child) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 5,
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Text(
-                          'Resenha - ${movie.title}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6!
-                              .copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
+                borderRadius: BorderRadius.circular(16),
+                color: Theme.of(context).colorScheme.background,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        '${isEditing ? 'Editando' : 'Nova'} Resenha - ${movie.title}',
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                      TextFormField(
-                        controller: viewModel.reviewTitleController,
-                        decoration: const InputDecoration(
-                          hintText: 'Título',
-                        ),
-                        maxLength: 64,
+                    ),
+                    TextFormField(
+                      controller: viewModel.reviewTitleController,
+                      decoration: const InputDecoration(
+                        hintText: 'Título',
                       ),
-                      TextFormField(
-                        controller: viewModel.reviewBodyController,
-                        decoration: const InputDecoration(
-                          hintText: 'Conteúdo',
-                        ),
-                        maxLines: 8,
-                        maxLength: 256,
+                      maxLength: 64,
+                    ),
+                    TextFormField(
+                      controller: viewModel.reviewBodyController,
+                      decoration: const InputDecoration(
+                        hintText: 'Conteúdo',
                       ),
-                      Text(
-                        'Avaliação',
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle1!
-                            .copyWith(color: Theme.of(context).hintColor),
+                      maxLines: 8,
+                      maxLength: 256,
+                    ),
+                    Text(
+                      'Avaliação',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(color: Theme.of(context).hintColor),
+                    ),
+                    RatingBar.builder(
+                      itemSize: 32,
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
-                      RatingBar.builder(
-                        itemSize: 32,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        initialRating: viewModel.reviewRating,
-                        onRatingUpdate: (rating) =>
-                            viewModel.reviewRating = rating,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: viewModel.viewState == ViewState.SUCCESS
-                              ? ElevatedButton(
-                                  onPressed: () async {
+                      initialRating: viewModel.reviewRating,
+                      onRatingUpdate: (rating) =>
+                          viewModel.reviewRating = rating,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: viewModel.viewState == ViewState.SUCCESS
+                            ? ElevatedButton(
+                                onPressed: () async {
+                                  if (isEditing) {
                                     final response =
-                                        await viewModel.submitReview();
+                                        await viewModel.updateReview();
                                     response.fold((l) => null, (r) {
-                                      onReviewCreated(r);
+                                      onReviewEdited!(r);
                                       Navigator.pop(context);
                                     });
-                                  },
-                                  child: const Text('Salvar'),
-                                )
-                              : const CircularProgressIndicator(),
-                        ),
-                      )
-                    ],
-                  ),
+                                  } else {
+                                    final response =
+                                        await viewModel.createReview();
+                                    response.fold((l) => null, (r) {
+                                      onReviewCreated!(r);
+                                      Navigator.pop(context);
+                                    });
+                                  }
+                                },
+                                child: const Text('Salvar'),
+                              )
+                            : const CircularProgressIndicator(),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

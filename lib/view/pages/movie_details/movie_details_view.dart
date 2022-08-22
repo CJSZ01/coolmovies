@@ -2,8 +2,8 @@ import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
 import 'package:coolmovies/view/components/base_view.dart';
-import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
 import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
+import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -119,7 +119,13 @@ class MovieDetailsView extends StatelessWidget {
                             ),
                           ),
                           const Divider(),
-                          MovieReviewsList(reviews: model.reviews),
+                          MovieReviewsList(
+                            movie: movie,
+                            reviews: model.reviews,
+                            onReviewEdited: (index, newReview) {
+                              model.updateReview(index, newReview);
+                            },
+                          ),
                           const SizedBox(
                             height: 75,
                           ),

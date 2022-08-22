@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class MovieReviewHeader extends StatelessWidget {
-  const MovieReviewHeader({Key? key, required this.review}) : super(key: key);
+  const MovieReviewHeader({
+    required this.review,
+    Key? key,
+  }) : super(key: key);
 
   final Review review;
 

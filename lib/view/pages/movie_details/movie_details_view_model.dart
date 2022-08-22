@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/models/review.dart';
-import 'package:coolmovies/core/models/user.dart';
-import 'package:coolmovies/core/queries.dart';
 import 'package:coolmovies/core/repositories/implementations/review_repository_implementation.dart';
 import 'package:coolmovies/core/repositories/review_repository.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
@@ -35,6 +33,10 @@ class MovieDetailsViewModel extends BaseViewModel {
       notifyListeners();
     }, (reviews) {
       _reviews = reviews;
+      _reviews.sort(
+        (a, b) =>
+            a.user!.name.toLowerCase().compareTo(b.user!.name.toLowerCase()),
+      );
       viewState = ViewState.SUCCESS;
       notifyListeners();
     });
@@ -42,6 +44,11 @@ class MovieDetailsViewModel extends BaseViewModel {
 
   void addReview(Review review) {
     _reviews.add(review);
+    notifyListeners();
+  }
+
+  void updateReview(int index, Review review) {
+    _reviews[index] = review;
     notifyListeners();
   }
 }

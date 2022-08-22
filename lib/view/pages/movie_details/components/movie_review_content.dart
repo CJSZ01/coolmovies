@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class MovieReviewContent extends StatelessWidget {
   const MovieReviewContent({
     required this.review,
+    required this.onPressEdit,
     Key? key,
   }) : super(key: key);
 
   final Review review;
+  final VoidCallback onPressEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class MovieReviewContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressEdit,
                 child: const Text('Editar'),
               ),
               const SizedBox(

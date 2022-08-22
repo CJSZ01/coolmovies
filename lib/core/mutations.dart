@@ -1,13 +1,6 @@
-import 'package:coolmovies/core/models/review.dart';
-
 class GraphQLMutations {
-  String createMovieReview(
-    String movieId,
-    String userReviewerId,
-    Review review,
-  ) =>
-      r'''
-          mutation CreateMovieReview($reviewTitle: String!,$reviewBody: String!, $reviewRating: Int!, $reviewMovieId: UUID!, $userReviewerId: UUID! ) {
+  String get createMovieReview => r'''
+          mutation CreateMovieReview($reviewTitle: String!,$reviewBody: String!, $reviewRating: Int!, $reviewMovieId: UUID!, $userReviewerId: UUID!) {
             createMovieReview(input: {
               movieReview: {
                 title: $reviewTitle,
@@ -32,4 +25,33 @@ class GraphQLMutations {
             }
           }
         ''';
+
+  String get updateMovieReviewById => r'''
+mutation UpdateMovieReviewById($reviewTitle: String!,$reviewBody: String!, $reviewRating: Int!, $reviewId: UUID!) {
+	updateMovieReviewById(
+		input: {
+			id : $reviewId,
+			movieReviewPatch: {
+			  title: $reviewTitle,
+        body: $reviewBody,
+        rating: $reviewRating,
+			}
+		}
+	) {
+		movieReview {
+			id
+			title
+			body
+			rating
+			movieByMovieId {
+				title
+			}
+			userByUserReviewerId {
+				name
+			}
+		}
+	}
+}
+
+''';
 }

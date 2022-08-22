@@ -30,6 +30,7 @@ class IReviewRepository implements ReviewRepository {
       final List<Review> reviews = result.data!['allMovieReviews']['nodes']
           .map<Review>(
             (reviewMap) => Review(
+              id: reviewMap['id'],
               title: reviewMap['title'],
               body: reviewMap['body'],
               rating: reviewMap['rating'],
@@ -56,16 +57,43 @@ class IReviewRepository implements ReviewRepository {
           'userReviewerId': review.user?.id ?? ''
         },
         document: gql(
-          GraphQLMutations()
-              .createMovieReview(movie.id, review.user!.id!, review),
+          GraphQLMutations().createMovieReview,
         ),
       ),
     );
+
     if (result.hasException) {
       return Left(result.exception!);
     } else {
       return Right(
         Review.fromMap(result.data!['createMovieReview']['movieReview']),
+      );
+    }
+  }
+
+  @override
+  Future<Either<OperationException, Review>> updateMovieReviewById(
+    Review review,
+  ) async {
+    final QueryResult result = await graphQLClient.mutate(
+      MutationOptions(
+        variables: {
+          'reviewTitle': review.title,
+          'reviewBody': review.body,
+          'reviewRating': review.rating,
+          'reviewId': review.id
+        },
+        document: gql(
+          GraphQLMutations().updateMovieReviewById,
+        ),
+      ),
+    );
+
+    if (result.hasException) {
+      return Left(result.exception!);
+    } else {
+      return Right(
+        Review.fromMap(result.data!['updateMovieReviewById']['movieReview']),
       );
     }
   }
