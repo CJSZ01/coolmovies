@@ -1,4 +1,5 @@
 import 'package:coolmovies/core/models/movie.dart';
+import 'package:coolmovies/core/repositories/interfaces/movie_repository_interface.dart';
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/view/components/base_app_bar.dart';
@@ -8,17 +9,20 @@ import 'package:coolmovies/view/pages/home/components/movie_tile.dart';
 import 'package:coolmovies/view/pages/home/home_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({
+    required final IMovieRepository repository,
+    Key? key,
+  })  : _repository = repository,
+        super(key: key);
+  final IMovieRepository _repository;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () =>
-          HomeViewModel(graphQLClient: GraphQLProvider.of(context).value),
+      viewModelBuilder: () => HomeViewModel(_repository),
       onModelReady: (model) => model.onModelReady(),
       builder: (context, viewModel, child) {
         switch (viewModel.viewState) {

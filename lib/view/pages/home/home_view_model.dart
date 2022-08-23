@@ -1,16 +1,15 @@
 import 'package:coolmovies/core/models/movie.dart';
-import 'package:coolmovies/core/queries.dart';
+import 'package:coolmovies/core/repositories/interfaces/movie_repository_interface.dart';
 
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_view_model.dart';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
-
 class HomeViewModel extends BaseViewModel {
-  final GraphQLClient graphQLClient;
-  HomeViewModel({required this.graphQLClient});
+  final IMovieRepository _repository;
 
-  List<Movie> _movies = [];
+  HomeViewModel(this._repository);
+
+  final List<Movie> _movies = [];
 
   List<Movie> get movies => _movies;
 
@@ -20,21 +19,13 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future<void> fetchMovies() async {
-    final QueryResult result = await graphQLClient.query(
-      QueryOptions(
-        document: gql(
-          GraphQLQueries.getAllMoviesWithReviews(),
-        ),
-      ),
-    );
-    if (result.hasException) {
+    final result = await _repository.getAllMovies();
+    result.fold((l) {
       viewState = ViewState.ERROR;
       notifyListeners();
-    } else {
-      final _moviesMap = result.data!['allMovies']['nodes'];
-      _movies = _moviesMap.map<Movie>((map) => Movie.fromMap(map)).toList();
+    }, (r) {
       viewState = ViewState.SUCCESS;
       notifyListeners();
-    }
+    });
   }
 }
