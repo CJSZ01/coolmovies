@@ -14,5 +14,7 @@
     "reviewDialogSaveButton" : "Salvar",
     "reviewDialogEditButton" : "Editar",
     "reviewDialogDelete" : "Remover",
-    "reviewEditingDialogTitle" : "Editando Resenha - "
+    "reviewEditingDialogTitle" : "Editando Resenha - ",
+    "profileAppBarGreetings" : "Olá ",
+    "profileLanguageSelect" : "Selecione seu idioma"
 }

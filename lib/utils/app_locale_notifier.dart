@@ -5,12 +5,8 @@ class AppLocaleNotifier extends ChangeNotifier {
 
   Locale get appLocale => _appLocale;
 
-  Future<void> toggleLocale() async {
-    if (_appLocale == const Locale('en')) {
-      _appLocale = const Locale('pt');
-    } else {
-      _appLocale = const Locale('en');
-    }
+  Future<void> selectLocale(Locale locale) async {
+    _appLocale = locale;
     notifyListeners();
   }
 }

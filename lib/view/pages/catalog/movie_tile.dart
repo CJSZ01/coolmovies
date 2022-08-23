@@ -66,16 +66,17 @@ class MovieTile extends StatelessWidget {
                   valueListenable: imageFrameNotifier,
                   builder: (context, frame, child) {
                     return AnimatedOpacity(
-                        opacity: frame == null ? 0 : 1,
-                        duration: const Duration(seconds: 1),
-                        child: Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.caption!.copyWith(
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                          maxLines: 2,
-                        ));
+                      opacity: frame == null ? 0 : 1,
+                      duration: const Duration(seconds: 1),
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption!.copyWith(
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                        maxLines: 2,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -87,43 +88,42 @@ class MovieTile extends StatelessWidget {
                   opacity: frame == null ? 0 : 1,
                   duration: const Duration(seconds: 1),
                   child: Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(spreadRadius: 1, blurRadius: 4)
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: const [
+                          BoxShadow(spreadRadius: 1, blurRadius: 4)
+                        ],
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(16),
+                        ),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.star,
+                              size: 15,
+                              color: Theme.of(context).colorScheme.background,
+                            ),
+                            Text(
+                              rating.toStringAsFixed(2),
+                              style:
+                                  Theme.of(context).textTheme.caption!.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .background,
+                                      ),
+                            )
                           ],
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(16),
-                            bottomLeft: Radius.circular(16),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.star,
-                                size: 15,
-                                color: Theme.of(context).colorScheme.background,
-                              ),
-                              Text(
-                                rating.toStringAsFixed(2),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )),
+                      ),
+                    ),
+                  ),
                 );
               },
             )

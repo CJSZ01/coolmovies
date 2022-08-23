@@ -47,18 +47,23 @@ class CoolMoviesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => AppLocaleNotifier(),
-        child: Consumer<AppLocaleNotifier>(
-          builder: (context, value, child) => MaterialApp(
-            locale: value.appLocale,
-            title: 'CoolMovies',
-            theme: DefaultTheme.themeData,
-            initialRoute: AppRoutes.login,
-            routes: AppRoutes.routes,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-          ),
-        ));
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppLocaleNotifier>(
+          create: (_) => AppLocaleNotifier(),
+        )
+      ],
+      child: Consumer<AppLocaleNotifier>(
+        builder: (context, value, child) => MaterialApp(
+          locale: value.appLocale,
+          title: 'CoolMovies',
+          theme: DefaultTheme.themeData,
+          initialRoute: AppRoutes.login,
+          routes: AppRoutes.routes,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
+      ),
+    );
   }
 }

@@ -14,5 +14,7 @@
     "reviewDialogSaveButton" : "Save",
     "reviewDialogEditButton" : "Edit",
     "reviewDialogDelete" : "Delete",
-    "reviewEditingDialogTitle" : "Editing Review - "
+    "reviewEditingDialogTitle" : "Editing Review - ",
+    "profileAppBarGreetings" : "Hey ",
+    "profileLanguageSelect" : "Select your preferred language"
 }
