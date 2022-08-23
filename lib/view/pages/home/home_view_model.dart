@@ -1,32 +1,27 @@
-import 'package:coolmovies/core/models/movie.dart';
 import 'package:coolmovies/core/repositories/interfaces/movie_repository_interface.dart';
-
-import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/base_view_model.dart';
+import 'package:coolmovies/view/pages/catalog/catalog_view.dart';
+import 'package:coolmovies/view/pages/profile/profile_view.dart';
+import 'package:flutter/material.dart';
 
 class HomeViewModel extends BaseViewModel {
   final IMovieRepository _repository;
 
-  HomeViewModel(this._repository);
+  late final List<Widget> _children;
+  List<Widget> get children => _children;
 
-  List<Movie> _movies = [];
-
-  List<Movie> get movies => _movies;
+  int _selectedIndex = 0;
+  int get selectedIndex => _selectedIndex;
 
   @override
   Future<void> onModelReady() async {
-    await fetchMovies();
+    _children = [CatalogView(repository: _repository), const ProfileView()];
   }
 
-  Future<void> fetchMovies() async {
-    final result = await _repository.getAllMovies();
-    result.fold((l) {
-      viewState = ViewState.ERROR;
-      notifyListeners();
-    }, (r) {
-      _movies = r;
-      viewState = ViewState.SUCCESS;
-      notifyListeners();
-    });
+  void changeIndex(int index) {
+    _selectedIndex = index;
+    notifyListeners();
   }
+
+  HomeViewModel(this._repository);
 }

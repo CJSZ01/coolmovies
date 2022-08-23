@@ -4,9 +4,9 @@ import 'package:coolmovies/core/repositories/interfaces/review_repository_interf
 import 'package:coolmovies/core/view_state_enum.dart';
 import 'package:coolmovies/view/components/review_dialog/review_dialog_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:stacked/stacked.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewDialog extends StatelessWidget {
   final Movie movie;
@@ -136,8 +136,10 @@ class ReviewDialog extends StatelessWidget {
                                     });
                                   }
                                 },
-                                child: Text(AppLocalizations.of(context)!
-                                    .reviewDialogSaveButton),
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .reviewDialogSaveButton,
+                                ),
                               )
                             : const CircularProgressIndicator(),
                       ),

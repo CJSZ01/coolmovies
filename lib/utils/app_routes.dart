@@ -15,6 +15,9 @@ class AppRoutes {
 
   static final _routes = <String, WidgetBuilder>{
     login: (context) => const LoginView(),
+    // home: (context) => CatalogView(
+    //       repository: MovieRepository(GraphQLProvider.of(context).value),
+    //     ),
     home: (context) => HomeView(
           repository: MovieRepository(GraphQLProvider.of(context).value),
         ),
