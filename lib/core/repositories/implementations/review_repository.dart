@@ -18,7 +18,6 @@ class ReviewRepository implements IReviewRepository {
   ) async {
     final QueryResult result = await graphQLClient.query(
       QueryOptions(
-        fetchPolicy: FetchPolicy.networkOnly,
         document: gql(
           GraphQLQueries.getMovieReviewsByMovie(movie.id),
         ),

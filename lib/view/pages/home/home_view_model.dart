@@ -9,7 +9,7 @@ class HomeViewModel extends BaseViewModel {
 
   HomeViewModel(this._repository);
 
-  final List<Movie> _movies = [];
+  List<Movie> _movies = [];
 
   List<Movie> get movies => _movies;
 
@@ -24,6 +24,7 @@ class HomeViewModel extends BaseViewModel {
       viewState = ViewState.ERROR;
       notifyListeners();
     }, (r) {
+      _movies = r;
       viewState = ViewState.SUCCESS;
       notifyListeners();
     });

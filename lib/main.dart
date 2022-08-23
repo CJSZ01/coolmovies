@@ -25,6 +25,8 @@ void main() async {
   final ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
       link: link,
+      defaultPolicies:
+          DefaultPolicies(query: Policies(fetch: FetchPolicy.networkOnly)),
       cache: GraphQLCache(store: HiveStore()),
     ),
   );
