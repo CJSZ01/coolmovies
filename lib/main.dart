@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/utils/themes/default_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   // We're using HiveStore for persistence,
@@ -49,6 +51,8 @@ class CoolMoviesApp extends StatelessWidget {
       theme: DefaultTheme.themeData,
       initialRoute: AppRoutes.login,
       routes: AppRoutes.routes,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

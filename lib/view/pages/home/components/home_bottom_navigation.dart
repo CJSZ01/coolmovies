@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeBottomNavigation extends StatelessWidget {
   const HomeBottomNavigation({Key? key}) : super(key: key);
@@ -6,18 +7,18 @@ class HomeBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const [
+      items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.movie),
-          label: 'Catálogo',
+          icon: const Icon(Icons.movie),
+          label: AppLocalizations.of(context)!.homeCatalogButton,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.reviews),
-          label: 'Resenhas',
+          icon: const Icon(Icons.reviews),
+          label: AppLocalizations.of(context)!.homeReviewsButton,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Perfil',
+          icon: const Icon(Icons.person),
+          label: AppLocalizations.of(context)!.homeProfileButton,
         ),
       ],
     );

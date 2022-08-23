@@ -45,7 +45,7 @@ class ReviewDialogViewModel extends BaseViewModel {
       title: reviewTitleController.text,
       rating: reviewRating.toInt(),
       //TODO: Implement real user
-      user: User(name: '', id: '5f1e6707-7c3a-4acd-b11f-fd96096abd5a'),
+      user: User(name: 'Ayla', id: '65549e6a-2389-42c5-909a-4475fdbb3e69'),
     );
     final response = await _repository.createMovieReview(movie, review);
     response.fold((exception) {

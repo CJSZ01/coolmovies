@@ -1,5 +1,6 @@
 import 'package:coolmovies/core/models/review.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MovieReviewContent extends StatelessWidget {
   const MovieReviewContent({
@@ -40,20 +41,22 @@ class MovieReviewContent extends StatelessWidget {
           ),
         ),
         //TODO: Implement current user
-        if (review.user!.name == 'Ayla')
+        if (review.user!.id == '65549e6a-2389-42c5-909a-4475fdbb3e69')
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
                 onPressed: onPressEdit,
-                child: const Text('Editar'),
+                child: Text(
+                  AppLocalizations.of(context)!.reviewDialogEditButton,
+                ),
               ),
               const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
                 onPressed: onPressDelete,
-                child: const Text('Excluir'),
+                child: Text(AppLocalizations.of(context)!.reviewDialogDelete),
               )
             ],
           )

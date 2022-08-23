@@ -9,6 +9,7 @@ import 'package:coolmovies/view/pages/home/components/movie_tile.dart';
 import 'package:coolmovies/view/pages/home/home_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeView extends StatelessWidget {
@@ -35,7 +36,8 @@ class HomeView extends StatelessWidget {
           case ViewState.SUCCESS:
             return BaseView(
               showFAB: false,
-              appBar: BaseAppBar(title: 'O que vamos assistir hoje?'),
+              appBar: BaseAppBar(
+                  title: AppLocalizations.of(context)!.homeAppBarTitle),
               bottomNavigationBar: const HomeBottomNavigation(),
               child: Center(
                 child: Padding(
@@ -63,9 +65,6 @@ class HomeView extends StatelessWidget {
                       );
                     },
                   ),
-                  // child: MovieTile(
-                  //     title: viewModel.movies[0].title,
-                  //     imgUrl: viewModel.movies[0].imgUrl),
                 ),
               ),
             );

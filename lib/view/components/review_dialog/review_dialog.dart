@@ -6,6 +6,7 @@ import 'package:coolmovies/view/components/review_dialog/review_dialog_view_mode
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ReviewDialog extends StatelessWidget {
   final Movie movie;
@@ -72,7 +73,7 @@ class ReviewDialog extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        '${isEditing ? 'Editando' : 'Nova'} Resenha - ${movie.title}',
+                        '${isEditing ? AppLocalizations.of(context)!.reviewEditingDialogTitle : AppLocalizations.of(context)!.reviewDialogTitle} ${movie.title}',
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                               color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
@@ -81,21 +82,23 @@ class ReviewDialog extends StatelessWidget {
                     ),
                     TextFormField(
                       controller: viewModel.reviewTitleController,
-                      decoration: const InputDecoration(
-                        hintText: 'Título',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!
+                            .reviewDialogTitleInputLabel,
                       ),
                       maxLength: 64,
                     ),
                     TextFormField(
                       controller: viewModel.reviewBodyController,
-                      decoration: const InputDecoration(
-                        hintText: 'Conteúdo',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!
+                            .reviewDialogContentInputLabel,
                       ),
                       maxLines: 8,
                       maxLength: 256,
                     ),
                     Text(
-                      'Avaliação',
+                      AppLocalizations.of(context)!.reviewDialogRatingLabel,
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1!
@@ -133,7 +136,8 @@ class ReviewDialog extends StatelessWidget {
                                     });
                                   }
                                 },
-                                child: const Text('Salvar'),
+                                child: Text(AppLocalizations.of(context)!
+                                    .reviewDialogSaveButton),
                               )
                             : const CircularProgressIndicator(),
                       ),

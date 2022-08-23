@@ -8,6 +8,7 @@ import 'package:coolmovies/view/components/review_dialog/review_dialog.dart';
 import 'package:coolmovies/view/pages/movie_details/components/movie_reviews_list.dart';
 import 'package:coolmovies/view/pages/movie_details/movie_details_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stacked/stacked.dart';
 
 class MovieDetailsView extends StatelessWidget {
@@ -84,7 +85,8 @@ class MovieDetailsView extends StatelessWidget {
                           const Divider(),
                           RichText(
                             text: TextSpan(
-                              text: 'Data de lançamento: ',
+                              text: AppLocalizations.of(context)!
+                                  .movieDetailsReleaseDate,
                               style: Theme.of(context).textTheme.bodyText1,
                               children: <TextSpan>[
                                 TextSpan(
@@ -105,7 +107,8 @@ class MovieDetailsView extends StatelessWidget {
                           const Divider(),
                           RichText(
                             text: TextSpan(
-                              text: 'Diretor: ',
+                              text: AppLocalizations.of(context)!
+                                  .movieDetailsDirector,
                               style: Theme.of(context).textTheme.bodyText1,
                               children: <TextSpan>[
                                 TextSpan(

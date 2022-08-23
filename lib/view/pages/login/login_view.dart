@@ -2,6 +2,7 @@ import 'package:coolmovies/utils/app_routes.dart';
 import 'package:coolmovies/utils/svg_pictures.dart';
 import 'package:coolmovies/view/components/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginView extends StatelessWidget {
@@ -31,11 +32,11 @@ class LoginView extends StatelessWidget {
                         context,
                         AppRoutes.home,
                       ),
-                      child: const Text('Login'),
+                      child: Text(AppLocalizations.of(context)!.loginButton),
                     ),
                     ElevatedButton(
                       onPressed: () {},
-                      child: const Text('Sign Up'),
+                      child: Text(AppLocalizations.of(context)!.signUpButton),
                     )
                   ],
                 ),

@@ -1,0 +1,18 @@
+{
+    "loginButton": "Entrar",
+    "signUpButton" : "Cadastro",
+    "homeAppBarTitle" : "O que vamos assistir hoje?",
+    "homeCatalogButton" : "Catálogo",
+    "homeReviewsButton" : "Resenhas",
+    "homeProfileButton" : "Perfil",
+    "movieDetailsReleaseDate" :"Data de lançamento :",
+    "movieDetailsDirector" : "Diretor:",
+    "reviewDialogTitle" : "Nova resenha - ",
+    "reviewDialogTitleInputLabel" : "Título",
+    "reviewDialogContentInputLabel" : "Conteúdo",
+    "reviewDialogRatingLabel" : "Avaliação",
+    "reviewDialogSaveButton" : "Salvar",
+    "reviewDialogEditButton" : "Editar",
+    "reviewDialogDelete" : "Remover",
+    "reviewEditingDialogTitle" : "Editando Resenha - "
+}
