@@ -1,3 +1,4 @@
+import 'package:coolmovies/view/components/film_loading_widget.dart';
 import 'package:flutter/material.dart';
 
 class BaseView extends StatelessWidget {
@@ -28,7 +29,7 @@ class BaseView extends StatelessWidget {
   const BaseView.loading({
     Key? key,
   })  : child = const Center(
-          child: CircularProgressIndicator(),
+          child: FilmLoadingWidget(),
         ),
         errorMessage = null,
         drawer = null,
