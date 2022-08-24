@@ -1,0 +1,22 @@
+{
+    "loginButton": "Entrar",
+    "signUpButton" : "Cadastro",
+    "homeAppBarTitle" : "O que vamos assistir hoje?",
+    "homeCatalogButton" : "Catálogo",
+    "homeReviewsButton" : "Resenhas",
+    "homeProfileButton" : "Perfil",
+    "movieDetailsReleaseDate" :"Data de lançamento :",
+    "movieDetailsDirector" : "Diretor:",
+    "reviewDialogTitle" : "Nova resenha - ",
+    "reviewDialogTitleInputLabel" : "Título",
+    "reviewDialogContentInputLabel" : "Conteúdo",
+    "reviewDialogRatingLabel" : "Avaliação",
+    "reviewDialogSaveButton" : "Salvar",
+    "reviewDialogEditButton" : "Editar",
+    "reviewDialogDelete" : "Remover",
+    "reviewEditingDialogTitle" : "Editando Resenha - ",
+    "profileAppBarGreetings" : "Olá ",
+    "profileLanguageSelect" : "Selecione seu idioma",
+    "greetingsPageContinue" : "Continuar",
+    "greetingsPageText": "Bem-vindo a minha ideia do aplicativo CoolMovies. Se você não me conhece, meu nome é Caio, e eu sou muito grato por você poder reservar o tempo para dar uma olhada.\n Espero que goste :D"
+}
