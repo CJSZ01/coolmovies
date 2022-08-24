@@ -29,7 +29,9 @@ class LoginViewModel extends BaseViewModel {
     ];
     await Future.delayed(const Duration(seconds: 5));
     await _pageController.nextPage(
-        duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeIn,
+    );
     return super.onModelReady();
   }
 }
