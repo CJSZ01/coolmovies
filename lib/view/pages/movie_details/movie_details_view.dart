@@ -77,9 +77,12 @@ class MovieDetailsView extends StatelessWidget {
                       child: Column(
                         children: [
                           Center(
-                            child: Image.network(
-                              model.movie.imgUrl,
-                              height: 300,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.network(
+                                model.movie.imgUrl,
+                                height: 300,
+                              ),
                             ),
                           ),
                           const Divider(),

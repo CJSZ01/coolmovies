@@ -40,7 +40,6 @@ class MovieReviewContent extends StatelessWidget {
             ],
           ),
         ),
-        //TODO: Implement current user
         if (review.user!.id == '65549e6a-2389-42c5-909a-4475fdbb3e69')
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
